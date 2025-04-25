@@ -1,0 +1,47 @@
+groups:
+  - name: system_alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(windows_cpu_time_total{mode="idle"}[5m])) * 100) > 30
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}%"
+
+      - alert: HighMemoryUsage
+        expr: (windows_os_physical_memory_free_bytes / windows_cs_physical_memory_total_bytes) * 100 < 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage detected"
+          description: "Free memory is {{ $value }}%"
+
+      - alert: HighDiskUsage
+        expr: 100 - ((windows_logical_disk_free_bytes * 100) / windows_logical_disk_size_bytes) > 50
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage detected"
+          description: "Disk usage is {{ $value }}%"
+
+      - alert: HighNetworkTraffic
+        expr: sum(rate(windows_net_bytes_total[5m])) > 10000000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High network traffic detected"
+          description: "Network traffic is {{ $value }} bytes per second"
+
+      - alert: HighSystemLoad
+        expr: windows_system_processor_queue_length > 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High system load detected"
+          description: "System processor queue length is {{ $value }}" 
