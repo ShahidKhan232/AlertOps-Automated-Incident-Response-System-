@@ -13,7 +13,7 @@ This project provides a complete monitoring solution using Prometheus, Grafana, 
 ## Project Documentation and Media
 
 ### Videos
-- [System Demo Video](demo/video.mkv) - Live demonstration of the monitoring system
+- [System Demo Video](demo/video.mp4) - Live demonstration of the monitoring system
 
 ### Screenshots
 - [Dashboard Overview](demo/grafana%20dashboard.png) - Main monitoring dashboard
